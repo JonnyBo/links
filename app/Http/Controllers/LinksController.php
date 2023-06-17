@@ -12,7 +12,11 @@ class LinksController extends Controller
     }
 
     public function store(Request $request) {
+
         try {
+            $request->validate([
+                'link' => 'required|url'
+            ]);
             $model = new Link();
             $model->link = $request->link;
             $model->slug = $model->getSlug();

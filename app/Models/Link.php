@@ -21,26 +21,23 @@ class Link extends Model
 
     public static function getLastSlugs() {
         $links = self::query()
-            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
             ->take(10)
             ->get();
         return $links->map(function($link, $key) {
-            return [
-                'link' => URL::to('/') . '/' . $link->slug,
-            ];
+            return URL::to('/') . '/' . $link->slug;
         });
 
     }
 
     public function getSlug() :string {
         $link = self::query()
-            ->orderBy('created_at', 'desc')
+            ->orderBy('id', 'desc')
             ->first();
         $lastChar = 'a';
         if ($link && $link->slug) {
-            $lastChar = mb_substr($link->slug, -1);
-            ++$lastChar;
-            return mb_substr($link->slug, 0, -1) . $lastChar;
+            ++$link->slug;
+            return $link->slug;
         }
         return $lastChar;
     }
