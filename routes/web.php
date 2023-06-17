@@ -17,6 +17,5 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/links', function () {
-    return view('index');
-})
+Route::get('links', 'App\Http\Controllers\LinksController@index')->name('links');
+Route::post('/links/store', 'App\Http\Controllers\LinksController@store')->name('store');
